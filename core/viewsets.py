@@ -1,4 +1,5 @@
-from rest_framework import viewsets
+from rest_framework import viewsets,status
+from rest_framework.response import Response
 
 from .serializers import BrandSerializer,CategorySerializer,InflowSerializer,OutflowSerializer,ProductSerializer,SupplierSerializer
 from .filters import BrandFilter,CategoryFilter,InflowFilter,OutflowFilter,ProductFilter,SupplierFilter
@@ -10,6 +11,14 @@ class BrandViewSet(viewsets.ModelViewSet):
     filterset_class = BrandFilter
     ordering_fields = '__all__'
     ordering = '-id'
+    
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.serializer_class(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
@@ -17,6 +26,14 @@ class CategoryViewSet(viewsets.ModelViewSet):
     filterset_class = CategoryFilter
     ordering_fields = '__all__'
     ordering = '-id'
+    
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = self.serializer_class(instance, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class InflowViewSet(viewsets.ModelViewSet):
     queryset = Inflow.objects.all()
@@ -38,6 +55,14 @@ class ProductViewSet(viewsets.ModelViewSet):
     filterset_class = ProductFilter
     ordering_fields = '__all__'
     ordering = '-id'
+
+    def update(self, request, *args, **kwargs):
+         instance = self.get_object()
+         serializer = self.serializer_class(instance, data=request.data)
+         if serializer.is_valid():
+             serializer.save()
+             return Response(serializer.data)
+         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class SupplierViewSet(viewsets.ModelViewSet):
     queryset = Supplier.objects.all()
