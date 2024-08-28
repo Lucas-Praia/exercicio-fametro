@@ -32,17 +32,6 @@ class OutflowSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class ProductSerializer(serializers.ModelSerializer):
-    brand = serializers.SlugRelatedField(
-        read_only=False,
-        queryset=Brand.objects.all(),
-        slug_field='name'
-    )
-    category = serializers.SlugRelatedField(
-        read_only=False,
-        queryset=Category.objects.all(),
-        slug_field='name'
-    )
-
     class Meta:
         model = Product
         fields = '__all__'
