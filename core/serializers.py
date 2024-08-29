@@ -64,10 +64,13 @@ class InflowSerializer(serializers.ModelSerializer):
         return obj.product.title
 
 class OutflowSerializer(serializers.ModelSerializer):
-    product = serializers.PrimaryKeyRelatedField(queryset=Product.objects.all())
-    product_title = serializers.SerializerMethodField()
+    product_title = serializers.SerializerMethodField()  # Traz o nome do produto
 
     class Meta:
         model = Outflow
-        fields = '__all__'
+        fields = ['id', 'quantity', 'description', 'created_at', 'updated_at', 'product_title']  # Campos que serão mostrados no Json
+
+    def get_product_title(self, obj):  # Lógica que traz o título do produto
+        return obj.product.title
+
 
