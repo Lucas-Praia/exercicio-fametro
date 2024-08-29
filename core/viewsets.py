@@ -1,10 +1,12 @@
 from rest_framework import viewsets,status
 from rest_framework.response import Response
+from rest_framework.pagination import PageNumberPagination
 
 from .serializers import BrandSerializer,CategorySerializer,InflowSerializer,OutflowSerializer,ProductSerializer,SupplierSerializer
 from .filters import BrandFilter,CategoryFilter,InflowFilter,OutflowFilter,ProductFilter,SupplierFilter
 from .models import Brand,Category,Inflow,Outflow,Product,Supplier
 
+    
 class BrandViewSet(viewsets.ModelViewSet):
     queryset = Brand.objects.all()
     serializer_class = BrandSerializer
