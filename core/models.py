@@ -146,7 +146,7 @@ class Inflow(models.Model):
     
     product = models.ForeignKey(
         'Product',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='inflows',
         db_column='id_product',
         verbose_name='Product'
@@ -190,7 +190,7 @@ class Inflow(models.Model):
 class Outflow(models.Model):
     product = models.ForeignKey(
         'Product',
-        on_delete=models.PROTECT,
+        on_delete=models.CASCADE,
         related_name='outflows',
         db_column='id_product',
         verbose_name='Product'

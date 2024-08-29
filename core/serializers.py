@@ -68,9 +68,9 @@ class OutflowSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Outflow
-        fields = ['id', 'quantity', 'description', 'created_at', 'updated_at', 'product_title']  # Campos que serão mostrados no Json
+        fields = ['id', 'quantity', 'description', 'created_at', 'updated_at', 'product', 'product_title'] 
 
-    def get_product_title(self, obj):  # Lógica que traz o título do produto
+    def get_product_title(self, obj):  # Lógica que traz o nome do produto
         return obj.product.title
 
 
