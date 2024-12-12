@@ -1,0 +1,21 @@
+services:
+  postgres:
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=sge-fametro
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=123
+
+  core:
+    image: lucaspraia/sge-core
+    ports:
+      - 8080:8080
+    env_file:
+      - ./core.conf
+    command: >-
+      /bin/sh -c "./wait-for-it.sh -t 60 postgres:5432 -- echo 'postgres is up'
+      && python -u manage.py migrate
+      && python -u manage.py runserver 0.0.0.0:8080"
+
